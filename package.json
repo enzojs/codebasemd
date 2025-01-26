@@ -1,36 +1,39 @@
 {
-  "name": "@joserafael/codemap",
-  "description": "Merge all your code into a single markdown file or easy LLM integreation",
-  "version": "0.0.1",
+  "name": "codebasemd",
+  "version": "0.1.1",
+  "description": "CLI tool to merge your codebase into a single markdown file",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "bin": {
     "codemap": "./dist/index.js"
   },
-  "module": "./dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rm -rf ./dist && rslib build",
     "check": "biome check --write",
-    "deploy": "bun run build && bun publish --access=restricted",
+    "deploy": "bun run build && bun publish --access=public",
     "dev": "rslib build --watch",
     "format": "biome format --write",
+    "gen": "bun run ./src/index.ts",
     "postinstall": "bunx sort-package-json"
   },
   "dependencies": {
     "fast-glob": "^3.3.3",
     "ignore": "^7.0.3",
-    "minimist": "^1.2.8",
-    "nanoid": "^5.0.9",
-    "slug": "^10.0.0"
+    "minimist": "^1.2.8"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@microsoft/api-extractor": "^7.49.1",
     "@rslib/core": "^0.3.2",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^22.10.7",
-    "@types/slug": "^5.0.9",
+    "@types/node": "^22.10.10",
     "typescript": "^5"
-  }
+  },
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "core-js"
+  ]
 }
