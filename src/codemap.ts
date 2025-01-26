@@ -4,7 +4,7 @@ import fg from "fast-glob";
 import ignore from "ignore";
 
 import type { BiomeConfig } from "./types/BiomeConfig";
-import { alwaysIgnore, outputFilename } from "./utils/defaul";
+import { MAX_LINE_WARN, alwaysIgnore, outputFilename } from "./utils/defaul";
 import { EXTENSION_TO_LANG } from "./utils/ext-map";
 import { readIgnorePatterns } from "./utils/ig-patterns";
 import { parseArgs } from "./utils/parse-args";
@@ -70,6 +70,8 @@ export async function codemap() {
   // Use 'ignore' to handle .gitignore-style patterns
   const ig = ignore();
   ig.add(allIgnorePatterns);
+  console.info("Ignoring:");
+  console.table(allIgnorePatterns);
 
   // Use fast-glob to collect all possible files (only files, not directories)
   const allFiles = await fg(["**/*"], {
@@ -99,9 +101,11 @@ export async function codemap() {
 
     // Count lines
     const lines = fileContent.split(/\r?\n/).length;
-    // Warn if >300 lines
-    if (lines > 300) {
-      console.warn(`WARNING: File ./${relPath} has more than 300 lines`);
+
+    if (lines > MAX_LINE_WARN) {
+      console.warn(
+        `WARNING: File ./${relPath} has more than ${MAX_LINE_WARN} lines`,
+      );
     }
 
     // If user specified `--max-lines` and this file exceeds that, skip it

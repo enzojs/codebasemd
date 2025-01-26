@@ -1,12 +1,12 @@
 {
   "name": "codebasemd",
-  "version": "0.2.0",
+  "version": "0.3.2",
   "description": "CodeBaseMD - CLI tool to merge your codebase into a single markdown file",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "bin": {
-    "codemap": "./dist/index.js"
+    "codebasemd": "./dist/index.js"
   },
   "files": ["dist"],
   "scripts": {

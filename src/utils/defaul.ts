@@ -6,3 +6,4 @@ export const alwaysIgnore = [
   ".env*",
   "*lock*",
 ];
+export const MAX_LINE_WARN = 500;

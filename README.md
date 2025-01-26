@@ -14,6 +14,15 @@ bunx codebasemd
 bunx codebasemd --help
 ```
 
+## Installing as dev dependency
+```bash
+bun add codebasemd --dev
+```
+
+```bash
+bun run codebasemd
+```
+
 ## Development
 
 Install the dependencies:
