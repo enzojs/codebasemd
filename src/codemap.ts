@@ -2,11 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import fg from "fast-glob";
 import ignore from "ignore";
-import { parseArgs } from "./utils/parse-args";
-import { readIgnorePatterns } from "./utils/ig-patterns";
+
 import type { BiomeConfig } from "./types/BiomeConfig";
 import { alwaysIgnore, outputFilename } from "./utils/defaul";
 import { EXTENSION_TO_LANG } from "./utils/ext-map";
+import { readIgnorePatterns } from "./utils/ig-patterns";
+import { parseArgs } from "./utils/parse-args";
 
 export async function codemap() {
   const argv = parseArgs(process.argv.slice(2));
@@ -20,10 +21,19 @@ export async function codemap() {
   const useBiomeIgnore = Boolean(argv["biome-ignore"]);
 
   let gitignorePatterns: string[] = [];
+
+  // 1) Handle local .gitignore if it exists
   if (useGitignore) {
     const gitignorePath = path.join(sourceDir, ".gitignore");
     if (fs.existsSync(gitignorePath)) {
       gitignorePatterns = readIgnorePatterns(gitignorePath);
+
+      // Append "codebase.md" if not already present
+      if (!gitignorePatterns.includes(outputFilename)) {
+        fs.appendFileSync(gitignorePath, `\n${outputFilename}\n`);
+        console.info(`Appended '${outputFilename}' to .gitignore`);
+        gitignorePatterns.push(outputFilename);
+      }
     }
   }
 
@@ -46,14 +56,18 @@ export async function codemap() {
     }
   }
 
-  // Combine ignore patterns from both sources
+  // 2) Combine ignore patterns from .gitignore, biome.json, built-in, plus any user-supplied patterns
   const allIgnorePatterns = [
     ...gitignorePatterns,
     ...biomePatterns,
     ...alwaysIgnore,
   ];
 
-  // Use 'ignore' to handle .gitignore style patterns
+  if (argv.additionalIgnore && Array.isArray(argv.additionalIgnore)) {
+    allIgnorePatterns.push(...argv.additionalIgnore);
+  }
+
+  // Use 'ignore' to handle .gitignore-style patterns
   const ig = ignore();
   ig.add(allIgnorePatterns);
 
@@ -70,7 +84,7 @@ export async function codemap() {
     return !ig.ignores(file.replace(/\\/g, "/"));
   });
 
-  // Build the Markdown output
+  // 3) Build the Markdown output
   let markdownOutput = "";
   for (const relPath of filteredFiles) {
     const absolutePath = path.join(sourceDir, relPath);
@@ -80,6 +94,21 @@ export async function codemap() {
       fileContent = fs.readFileSync(absolutePath, "utf-8");
     } catch (err) {
       console.warn(`Could not read file ${relPath}:`, err);
+      continue;
+    }
+
+    // Count lines
+    const lines = fileContent.split(/\r?\n/).length;
+    // Warn if >300 lines
+    if (lines > 300) {
+      console.warn(`WARNING: File ./${relPath} has more than 300 lines`);
+    }
+
+    // If user specified `--max-lines` and this file exceeds that, skip it
+    if (argv.maxLines && lines > Number(argv.maxLines)) {
+      console.warn(
+        `Skipping file ./${relPath} - it exceeds ${argv.maxLines} lines`,
+      );
       continue;
     }
 
