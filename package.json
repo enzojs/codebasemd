@@ -1,6 +1,6 @@
 {
   "name": "codebasemd",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "CodeBaseMD - CLI tool to merge your codebase into a single markdown file",
   "type": "module",
   "main": "./dist/index.js",
@@ -18,6 +18,16 @@
     "gen": "bun run ./src/index.ts",
     "postinstall": "bunx sort-package-json"
   },
+  "keywords": [
+    "markdown",
+    "codebase",
+    "cli",
+    "code-merger",
+    "llm",
+    "ai",
+    "developer-tools",
+    "code-documentation"
+  ],
   "dependencies": {
     "fast-glob": "^3.3.3",
     "ignore": "^7.0.3",
