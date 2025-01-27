@@ -1,6 +1,6 @@
 {
   "name": "codebasemd",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "CodeBaseMD - CLI tool to merge your codebase into a single markdown file",
   "type": "module",
   "main": "./dist/index.js",

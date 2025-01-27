@@ -1,9 +1,15 @@
 # CodeBaseMD - CLI tool to merge your codebase into a single markdown file
 
-Effortlessly consolidate your entire codebase into a single, well-structured Markdown file with this CLI tool. Designed to make large codebases more LLM-friendly, CodeBaseMD provides a streamlined way to improve context when working with AI tools or sharing your project documentation. Perfect for developers leveraging AI-driven coding assistance, generating project overviews, or simplifying code navigation.
+Effortlessly consolidate your entire codebase into a single, well-structured Markdown file with this CLI tool. Designed to make large codebases more LLM-friendly, CodeBaseMD provides a streamlined way to improve context when working with AI tools, perfect for developers leveraging AI-driven coding assistance.
 
 ## Run
 
+npm
+```bash
+npx codebasemd
+```
+
+bun
 ```bash
 bunx codebasemd
 ```
@@ -15,6 +21,7 @@ bunx codebasemd --help
 ```
 
 ## Installing as dev dependency
+
 ```bash
 bun add codebasemd --dev
 ```
@@ -39,3 +46,28 @@ Use local build:
 ```bash
 bun run gen
 ```
+
+## bun?
+
+[https://github.com/oven-sh/bun](Bun) is a fast JavaScript all-in-one toolkit.
+
+## npm, pnpm, yarn etc?
+
+It should work, just run the `npx` equivalent
+```bash
+npx codebasemd
+```
+
+## What is bunx?
+
+[https://bun.sh/docs/cli/bunx])(https://bun.sh/docs/cli/bunx)
+
+## TODO
+
+- Implement tests
+- Support more configuration options
+- truncate large files `--truncate=<middle|top|bottom>` `--truncate-percent=10` will truncate 10% starting from `--truncate` arg only when the file exceeds `--max-lines` arg
+
+## Contribute
+
+[https://github.com/enzojs/codebasemd](https://github.com/enzojs/codebasemd)
