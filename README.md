@@ -59,15 +59,15 @@ npx codebasemd
 ```
 
 ## What is bunx?
-
-(https://bun.sh/docs/cli/bunx)[https://bun.sh/docs/cli/bunx]
+Use [bunx](https://github.com/oven-sh/bun) to auto-install and run packages from npm. It's [Bun](https://github.com/oven-sh/bun)'s equivalent of npx or yarn dlx
 
 ## TODO
 
 - Implement tests
 - Support more configuration options
 - truncate large files `--truncate=<middle|top|bottom>` `--truncate-percent=10` will truncate 10% starting from `--truncate` arg only when the file exceeds `--max-lines` arg
+- support ignore globs in eslint and tsconfig
 
 ## Contribute
 
-(https://github.com/enzojs/codebasemd)[https://github.com/enzojs/codebasemd]
+[https://github.com/enzojs/codebasemd](https://github.com/enzojs/codebasemd)
