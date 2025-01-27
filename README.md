@@ -49,7 +49,7 @@ bun run gen
 
 ## bun?
 
-[https://github.com/oven-sh/bun](Bun) is a fast JavaScript all-in-one toolkit.
+[Bun](https://github.com/oven-sh/bun) is a fast JavaScript all-in-one toolkit.
 
 ## npm, pnpm, yarn etc?
 
@@ -60,7 +60,7 @@ npx codebasemd
 
 ## What is bunx?
 
-[https://bun.sh/docs/cli/bunx])(https://bun.sh/docs/cli/bunx)
+(https://bun.sh/docs/cli/bunx)[https://bun.sh/docs/cli/bunx]
 
 ## TODO
 
@@ -70,4 +70,4 @@ npx codebasemd
 
 ## Contribute
 
-[https://github.com/enzojs/codebasemd](https://github.com/enzojs/codebasemd)
+(https://github.com/enzojs/codebasemd)[https://github.com/enzojs/codebasemd]
